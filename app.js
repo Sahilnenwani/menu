@@ -71,16 +71,36 @@ const menu = [
     img: "./images/item-9.jpeg",
     desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
   },
+  {
+    id: 15,
+    title: "Choclicious",
+    category: "Ice-cream",
+    price: 2.99,
+    img: "./images/item-10.jpeg",
+    desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+  },
 ];
 
 const sectioncenter=document.querySelector('.section-center');
-const filterbtn=document.querySelectorAll(".filter-btn");
-
+const container=document.querySelector('.btn-container')
 window.addEventListener("DOMContentLoaded", ()=>{
   displayMenuItems(menu);
-
-});
-
+const categories=menu.reduce(
+   function (values,items){
+if (!values.includes(items.category)) {
+  values.push(items.category);
+  
+}
+return values;
+    },['all']
+  );
+const categoryBtns=categories.map(function(category){
+return `<button class="filter-btn" type="button" 
+data-id="${category}">${category}</button>`
+}).join("");
+console.log(categoryBtns)
+container.innerHTML=categoryBtns;
+const filterbtn=container.querySelectorAll(".filter-btn");
 filterbtn.forEach((btn)=>{
   btn.addEventListener('click',(e)=>{
       const category=e.currentTarget.dataset.id;
@@ -98,6 +118,10 @@ filterbtn.forEach((btn)=>{
     } 
   });
 });
+
+
+});
+
 
 function displayMenuItems(Menu_items){
   let displayMenu=Menu_items.map((item)=>{
